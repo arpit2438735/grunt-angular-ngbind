@@ -1,5 +1,7 @@
 # bracestobind
 
+[![Build Status](https://travis-ci.org/arpit2438735/grunt-angular-ngbind.svg?branch=master)](https://travis-ci.org/arpit2438735/grunt-angular-ngbind)
+
 > Convert {{}} to ng-bind for angular html pages
 
 ## Getting Started
