@@ -1,15 +1,19 @@
 {
   "name": "bracestobind",
-  "version": "c",
+  "version": "0.1.1",
   "description": "Convert {{}} to ng-bind for angular html pages",
   "repository": "",
+  "private": "true",
   "author": {
     "name": "",
     "email": "",
     "url": ""
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "angularjs",
+    "ng-bind",
+    "ng-bind-convert-grunt-plugin"
   ],
   "main": "Gruntfile.js",
   "engines": {
@@ -17,14 +21,18 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-contrib-nodeunit": "~0.3.0",
-    "grunt": "~0.4.2",
     "jshint-stylish": "~0.1.5",
     "load-grunt-tasks": "~0.3.0"
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "dependencies": {
+    "cheerio": "^0.19.0"
   }
 }
