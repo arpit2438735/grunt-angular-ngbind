@@ -2,8 +2,7 @@
   "name": "bracestobind",
   "version": "0.1.1",
   "description": "Convert {{}} to ng-bind for angular html pages",
-  "repository": "",
-  "private": "true",
+  "repository": "https://github.com/arpit2438735/grunt-angular-ngbind",
   "author": {
     "name": "",
     "email": "",
