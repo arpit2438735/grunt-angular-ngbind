@@ -11,6 +11,23 @@ var cheerio = require('cheerio');
 
 var ngBindConversion = function (grunt) {
 	var regex = /{{(.+?)}}/g;
+
+	var _convert = function (dom) {
+		if (dom.children().length) {
+			return;
+		}
+
+		var currentDivText = dom.text(),
+			bracesText = currentDivText.match(regex),
+			matches = regex.exec(currentDivText)[1];
+
+		if (!bracesText.length) {
+			return;
+		}
+
+		return dom.attr('ng-bind', matches).text('');
+	};
+
 	this.init = function (filepath) {
 		if (!grunt.file.exists(filepath)) {
 			grunt.log.warn('Source file "' + filepath + '" not found.');
@@ -28,20 +45,12 @@ var ngBindConversion = function (grunt) {
 			$ = cheerio.load(content);
 
 		$('div').filter(function () {
-			if ($(this).children().length) {
-				return;
-			}
-
-			var currentDivText = $(this).text(),
-				bracesText = currentDivText.match(regex),
-				matches = regex.exec(currentDivText)[1];
-
-			if (!bracesText.length) {
-				return;
-			}
-
-			$(this).attr('ng-bind', matches).text('');
+			return _convert($(this));
 		});
+
+        $('span').filter(function () {
+            return _convert($(this));
+        });
 
 		return $.html();
 	};
