@@ -10,10 +10,12 @@
 var cheerio = require('cheerio');
 
 var ngBindConversion = function (grunt) {
-	var regex = /{{(.+?)}}/g;
+	var regex = /{{(.+?)}}/g,
+		currentDom;
+
 
 	var _convert = function (dom) {
-		if (dom.children().length) {
+		if (dom.children().length || dom.is('label')) {
 			return;
 		}
 
@@ -44,13 +46,16 @@ var ngBindConversion = function (grunt) {
 		var content = grunt.file.read(this.filepath),
 			$ = cheerio.load(content);
 
-		$('div').filter(function () {
-			return _convert($(this));
-		});
 
-        $('span').filter(function () {
-            return _convert($(this));
-        });
+		$('*').filter(function () {
+			currentDom = $(this);
+			/** Need to check just to avoid unnecessary check for empty text
+			 * for eg: <meta>,<html>
+			 */
+			if (currentDom.text()) {
+				_convert(currentDom);
+			}
+		});
 
 		return $.html();
 	};

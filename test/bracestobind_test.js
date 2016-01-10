@@ -23,13 +23,23 @@ var grunt = require('grunt');
 */
 
 exports.bracestobind = {
-  default_options: function (test) {
-    test.expect(1);
-    var template = 'basic-braces.html';
-    var actual = grunt.file.read('tmp/test/templates/' +  template);
-    var expected = grunt.file.read('test/expected/' + template);
-    test.equal(actual, expected, 'should contain ng-bind tag with exact html.');
+	default_options: function (test) {
+		test.expect(1);
+		var template = 'basic-braces.html';
+		var actual = grunt.file.read('tmp/test/templates/' + template);
+		var expected = grunt.file.read('test/expected/' + template);
+		test.equal(actual, expected, 'should contain ng-bind tag with exact html.');
 
-    test.done();
-  }
+		test.done();
+	},
+
+	angular_component: function (test) {
+		test.expect(1);
+		var template = 'braces-for-component.html';
+		var actual = grunt.file.read('tmp/test/templates/' + template);
+		var expected = grunt.file.read('test/expected/' + template);
+		test.equal(actual, expected, 'should contain ng-bind tag with exact html.');
+
+		test.done();
+	}
 };

@@ -31,10 +31,9 @@ module.exports = function (grunt) {
 				// Warn on and remove invalid source files (if nonull was set).
 				ngbindconversion.init(filepath);
 				content = ngbindconversion.convert();
-			});
 
-			// Write the destination file.
-			grunt.file.write(file.dest + file.src, content);
+				grunt.file.write(file.dest + filepath, content);
+			});
 
 			// Print a success message.
 			grunt.log.writeln('File "' + file.dest + '" created.');
