@@ -1,6 +1,9 @@
 # bracestobind
 
 [![Build Status](https://travis-ci.org/arpit2438735/grunt-angular-ngbind.svg?branch=master)](https://travis-ci.org/arpit2438735/grunt-angular-ngbind)
+[![Dependency Status](https://david-dm.org/arpit2438735/grunt-angular-ngbind.svg?style=flat)](https://david-dm.org/alanshaw/david)
+[![Download Monthly](https://img.shields.io/npm/dm/bracestobind.svg)](https://www.npmjs.com/package/bracestobind)
+[![Donate to help support Arpit development](http://img.shields.io/gratipay/arpit2438735.svg?style=flat)](https://www.gittip.com/arpit2438735/)
 
 > Convert {{}} to ng-bind for angular html pages
 
