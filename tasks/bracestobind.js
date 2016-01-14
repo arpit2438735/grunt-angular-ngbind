@@ -18,9 +18,8 @@ module.exports = function (grunt) {
 
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options({
-			punctuation: '.',
-			separator: ', '
-		});
+            custom_tag: 'span'
+        });
 		var content;
 		var ngbindconversion = new ngBindConversion(grunt);
 
@@ -29,7 +28,7 @@ module.exports = function (grunt) {
 			// Concat specified files.
 			file.src.filter(function (filepath) {
 				// Warn on and remove invalid source files (if nonull was set).
-				ngbindconversion.init(filepath);
+				ngbindconversion.init(filepath, options);
 				content = ngbindconversion.convert();
 
 				grunt.file.write(file.dest + filepath, content);

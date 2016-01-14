@@ -33,13 +33,21 @@ module.exports = function (grunt) {
 
     // Configuration to be run (and then tested).
     bracestobind: {
-      default_options: {
-        options: {
+        default_options: {
+            options: {},
+            files: {
+                'tmp/': 'test/templates/**.html'
+            }
         },
-        files: {
-          'tmp/': 'test/templates/**.html'
+
+        custom_options: {
+            options: {
+                custom_tag: 'i'
+            },
+            files: {
+                'tmp/custom/': 'test/templates/braces-for-labels.html'
+            }
         }
-      }
     },
 
     // Unit tests.

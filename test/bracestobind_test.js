@@ -41,5 +41,25 @@ exports.bracestobind = {
 		test.equal(actual, expected, 'should contain ng-bind tag with exact html.');
 
 		test.done();
-	}
+	},
+
+    test_for_label_conversion_for_default_options: function (test) {
+        test.expect(1);
+        var template = 'braces-for-labels.html';
+        var actual = grunt.file.read('tmp/test/templates/' + template);
+        var expected = grunt.file.read('test/expected/' + template);
+        test.equal(actual, expected, 'should contain ng-bind tag added in tag as default options.');
+
+        test.done();
+    },
+
+    test_for_label_conversion_for_custom_options: function (test) {
+        test.expect(1);
+        var template = 'braces-for-labels.html';
+        var actual = grunt.file.read('tmp/custom/test/templates/' + template);
+        var expected = grunt.file.read('test/expected/custom/' + template);
+        test.equal(actual, expected, 'should contain ng-bind tag added in tag mention in custom options..');
+
+        test.done();
+    }
 };

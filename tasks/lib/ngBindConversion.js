@@ -14,28 +14,39 @@ var ngBindConversion = function (grunt) {
 		currentDom;
 
 
-	var _convert = function (dom) {
-		if (dom.children().length || dom.is('label')) {
+    var _getText = function(text) {
+        var bracesText = text.match(regex),
+            matches = regex.exec(text)[1];
+
+        if (!bracesText.length) {
+            return;
+        }
+
+        return matches;
+    };
+	var _convert = function (dom, options) {
+        if (dom.is('label')) {
+            var labelText = _getText(dom.text()),
+                html = '<' + options.custom_tag + ' ng-bind="' + labelText +'">' + '</' + options.custom_tag + '>',
+                labelChild = dom.children().clone();
+            return dom.text('').append(html).append(labelChild);
+        }
+
+        if (dom.children().length) {
 			return;
 		}
 
-		var currentDivText = dom.text(),
-			bracesText = currentDivText.match(regex),
-			matches = regex.exec(currentDivText)[1];
-
-		if (!bracesText.length) {
-			return;
-		}
-
-		return dom.attr('ng-bind', matches).text('');
+		var matches = _getText(dom.text());
+		return matches && dom.attr('ng-bind', matches).text('');
 	};
 
-	this.init = function (filepath) {
+	this.init = function (filepath, options) {
 		if (!grunt.file.exists(filepath)) {
 			grunt.log.warn('Source file "' + filepath + '" not found.');
 			return false;
 		}
 		this.filepath = filepath;
+		this.options = options;
 	};
 
 	this.convert = function () {
@@ -44,8 +55,8 @@ var ngBindConversion = function (grunt) {
 		}
 
 		var content = grunt.file.read(this.filepath),
-			$ = cheerio.load(content);
-
+			$ = cheerio.load(content),
+            options = this.options;
 
 		$('*').filter(function () {
 			currentDom = $(this);
@@ -53,7 +64,7 @@ var ngBindConversion = function (grunt) {
 			 * for eg: <meta>,<html>
 			 */
 			if (currentDom.text()) {
-				_convert(currentDom);
+				_convert(currentDom, options);
 			}
 		});
 
