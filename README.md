@@ -55,10 +55,26 @@ grunt.initConfig({
 })
 ```
 
+### Custom Options
+
+```js
+grunt.initConfig({
+  bracestobind: {
+    options: {
+        custom_tag: '<any-tag>' //by default it will take as <span> and add for label elements and tags which has text in braces
+    },
+    files: {
+      'dest/': 'src/**/*.html',
+    },
+  },
+})
+```
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* v0.1.4 - Support ng-bind for labels and tags which have next element as `text` ideally if you put ng-bind on parent then internal element are completely ignored by angular.  
 * v0.1.3 - Changes for current version
      * Fix for multiple html/template page
      * Support for directive/component {{}} text
@@ -72,7 +88,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
     
         <div class="foo" value-pass-to-component="model" again-some-value-pass="{{text}}" one-more-value="example.test">{{bar}}</div>
         
-    -> **VS** <-
+    **VS**
         
         <div class="foo" ng-bind="bar" value-pass-to-component="model" again-some-value-pass="{{text}}" one-more-value="example.test"></div>    
     Which one is better for readable perspective? `//For me first one`

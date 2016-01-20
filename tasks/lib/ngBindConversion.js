@@ -38,6 +38,7 @@ var ngBindConversion = function (grunt) {
         }
 
         if (dom.children().length) {
+            /** To get text from next level and removing whitespaces as well **/
             var parentText = dom.first().contents().filter(function () {
                 return this.nodeType === 3;
             }).text().replace(/\s+/, "");
