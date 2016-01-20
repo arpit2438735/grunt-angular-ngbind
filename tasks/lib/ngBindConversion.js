@@ -24,19 +24,32 @@ var ngBindConversion = function (grunt) {
 
         return matches;
     };
+
+    var _bindTextToCurrentDom = function (dom, customTag) {
+        var labelText = _getText(dom.text()),
+            html = '<' + customTag + ' ng-bind="' + labelText +'">' + '</' + customTag + '>',
+            labelChild = dom.children();
+        return dom.text('').append(html).append(labelChild);
+    };
+
 	var _convert = function (dom, options) {
         if (dom.is('label')) {
-            var labelText = _getText(dom.text()),
-                html = '<' + options.custom_tag + ' ng-bind="' + labelText +'">' + '</' + options.custom_tag + '>',
-                labelChild = dom.children().clone();
-            return dom.text('').append(html).append(labelChild);
+            return _bindTextToCurrentDom(dom, options.custom_tag);
         }
 
         if (dom.children().length) {
-			return;
+            var parentText = dom.first().contents().filter(function () {
+                return this.nodeType === 3;
+            }).text().replace(/\s+/, "");
+
+            if (!parentText) {
+                return;
+            }
+
+            return _bindTextToCurrentDom(dom, options.custom_tag);
 		}
 
-		var matches = _getText(dom.text());
+        var matches = _getText(dom.text());
 		return matches && dom.attr('ng-bind', matches).text('');
 	};
 
@@ -60,7 +73,7 @@ var ngBindConversion = function (grunt) {
 
 		$('*').filter(function () {
 			currentDom = $(this);
-			/** Need to check just to avoid unnecessary check for empty text
+			/** Need to add a check just to avoid unnecessary check for empty text
 			 * for eg: <meta>,<html>
 			 */
 			if (currentDom.text()) {

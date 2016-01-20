@@ -61,5 +61,15 @@ exports.bracestobind = {
         test.equal(actual, expected, 'should contain ng-bind tag added in tag mention in custom options..');
 
         test.done();
+    },
+
+    test_for_component_deep_nested: function (test) {
+        test.expect(1);
+        var template = 'braces-for-component-deep-nested.html';
+        var actual = grunt.file.read('tmp/test/templates/' + template);
+        var expected = grunt.file.read('test/expected/' + template);
+        test.equal(actual, expected, 'should contain ng-bind tag mention as default and internal component as well if present..');
+
+        test.done();
     }
 };
